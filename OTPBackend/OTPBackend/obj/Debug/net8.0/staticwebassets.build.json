@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "V94pMurMsQOvfvN3uJH8l9D9QMANd4iuC/keuub1m0o=",
+  "Source": "OTPBackend",
+  "BasePath": "_content/OTPBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
