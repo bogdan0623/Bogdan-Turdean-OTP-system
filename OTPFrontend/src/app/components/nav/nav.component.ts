@@ -18,7 +18,6 @@ export class NavComponent implements OnInit{
   ngOnInit(): void {
     AuthService.behaviorSubject.subscribe(authenticated => {
       this.authenticated = authenticated;
-      console.log(`This is what i got ${authenticated}`)
     })
     
   }

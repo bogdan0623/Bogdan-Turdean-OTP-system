@@ -46,6 +46,7 @@ export class AuthenticatorComponent implements OnInit{
       ...formData
     }).subscribe({
       next: (res: any) => {
+        this.toastr.clear();
         this.authService.accessToken = res.token;
         AuthService.behaviorSubject.next(true);
         this.router.navigate(['/']);

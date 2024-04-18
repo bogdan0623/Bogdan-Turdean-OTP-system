@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dgSxFwQo/9av1SUS2phZFZB/ifS3OcY2yAwUtX91j26pfKY8GJmkxSRoDy8fGA+SmTk2wd3kH8IPpDPhUxal/Q==",
+  "dgSpecHash": "e8azQvihPiEVUhqPcGYn780VHfLpThTh76dCaWcRJxFVsR4oXg/dxu80W0KvroFP1bhlZsVPcD3hHC2tQUyCJg==",
   "success": true,
   "projectFilePath": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\OTPBackend.csproj",
   "expectedPackageFiles": [
@@ -49,6 +49,7 @@
     "C:\\Users\\turde\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\turde\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\turde\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\turde\\.nuget\\packages\\mstest.testframework\\3.3.1\\mstest.testframework.3.3.1.nupkg.sha512",
     "C:\\Users\\turde\\.nuget\\packages\\qrcoder\\1.4.3\\qrcoder.1.4.3.nupkg.sha512",
     "C:\\Users\\turde\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\turde\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",

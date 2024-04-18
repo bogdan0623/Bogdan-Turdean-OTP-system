@@ -1,24 +1,26 @@
 <main class="form-signin w-100 m-auto">
-    <form [formGroup]="form" (submit)="submit()">
-      <h1 class="h3 mb-3 fw-normal">Please insert your authenticator code</h1>
-  
-      <div class="form-floating">
-        <input formControlName="code" class="form-control" placeholder="6 digits code">
-        <label>6 digits code</label>
-      </div>
-  
-      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Submit</button>
-    </form>
+  <form [formGroup]="otpForm" (submit)="showMessage()">
+    <h1 class="h3 mb-3 fw-normal">Please insert expiration time in seconds</h1>
 
-    <form [formGroup]="otpForm" (submit)="showMessage()">
-      <h1 class="h3 mb-3 fw-normal">Please insert expiration time in seconds</h1>
-  
-      <div class="form-floating">
-        <input formControlName="expires_in" class="form-control" placeholder="expiration time in seconds">
-        <label>expiration time in seconds</label>
-      </div>
-  
-      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Generate Otp</button>
-    </form>
+    <div class="form-floating">
+      <input formControlName="expires_in" class="form-control" placeholder="expiration time in seconds">
+      <label>expiration time in seconds</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Generate Otp</button>
+  </form>
+
+  <form [formGroup]="form" (submit)="submit()">
+    <h1 class="h3 mb-3 fw-normal">Please insert your authenticator code</h1>
+
+    <div class="form-floating">
+      <input formControlName="code" class="form-control" placeholder="6 digits code">
+      <label>6 digits code</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Submit</button>
+  </form>
+
+    
 
   </main>

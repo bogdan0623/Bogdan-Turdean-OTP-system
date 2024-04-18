@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  message = "You ar not authenticated";
+  message = "You are not authenticated";
 
   constructor(private authService: AuthService) {
 
@@ -20,9 +20,8 @@ export class HomeComponent implements OnInit{
         AuthService.behaviorSubject.next(true);
       },
       error: err => {
-        this.message = `You ar not authenticated`
+        this.message = `You are not authenticated`
         AuthService.behaviorSubject.next(false);
-        console.log("error")
       }
     });
   }

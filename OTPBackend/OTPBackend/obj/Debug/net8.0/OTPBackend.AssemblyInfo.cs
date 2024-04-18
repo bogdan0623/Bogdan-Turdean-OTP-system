@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OTPBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+082fa7456877c90615398be426ee9a6d89c73fa0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+393eae624ab95db074d54e24965b7ee27ef8fcf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("OTPBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OTPBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
