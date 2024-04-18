@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Google.Authenticator;
+using Microsoft.AspNetCore.Mvc;
 using OTPBackend.Data;
 using OTPBackend.DTO;
 using OTPBackend.Models;
@@ -12,6 +13,8 @@ namespace OTPBackend.Controllers
     {
         private ApplicationDbContext _db;
         private IConfiguration _configuration;
+
+        private readonly string appName = "OTPBackend";
 
         public AuthController(ApplicationDbContext db, IConfiguration configuration)
         {
@@ -56,8 +59,53 @@ namespace OTPBackend.Controllers
                 return Unauthorized("Invalid password");
             }
 
-            string accessToken = TokenService.CreateAccessToken(user.Id, _configuration.GetSection("JWT:AccessKey").Value);
-            string refreshToken = TokenService.CreateRefreshToken(user.Id, _configuration.GetSection("JWT:RefreshKey").Value);
+            if(user.TfaSecret is not null)
+            {
+                return Ok(new
+                {
+                    id = user.Id,
+                });
+            }
+
+            Random random = new Random();
+            string secret = new(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", 32).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            string otpAuthUrl = $"otpauth://totp/{appName}:Secret?secret={secret}&issuer={appName}".Replace(" ", "%20");
+
+            return Ok(new
+            {
+                id = user.Id,
+                secret = secret,
+                otpauth_url = otpAuthUrl,
+            });
+        }
+
+        [HttpPost("two-factor")]
+        public IActionResult TwoFactor(TwoFactorDto dto)
+        {
+            User? user = _db.Users.Where(u => u.Id == dto.Id).FirstOrDefault();
+
+            if(user is null)
+            {
+                return Unauthorized("Invalid credentials");
+            }
+
+            string secret = user.TfaSecret is not null ? user.TfaSecret : dto.Secret;
+
+            TwoFactorAuthenticator tfa = new();
+            if(!tfa.ValidateTwoFactorPIN(secret, dto.Code, true))
+            {
+                return Unauthorized("Invalid credentials");
+            }
+
+            if(user.TfaSecret is null)
+            {
+                _db.Users.Where(u => u.Email == user.Email).FirstOrDefault()!.TfaSecret = dto.Secret;
+                _db.SaveChanges();
+            }
+
+                string accessToken = TokenService.CreateAccessToken(dto.Id, _configuration.GetSection("JWT:AccessKey").Value);
+            string refreshToken = TokenService.CreateRefreshToken(dto.Id, _configuration.GetSection("JWT:RefreshKey").Value);
 
             CookieOptions cookieOptions = new();
             cookieOptions.HttpOnly = true;
@@ -65,7 +113,7 @@ namespace OTPBackend.Controllers
 
             UserToken token = new()
             {
-                UserId = user.Id,
+                UserId = dto.Id,
                 Token = refreshToken,
                 ExpiredAt = DateTime.Now.AddDays(7),
             };

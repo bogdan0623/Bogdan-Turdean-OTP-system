@@ -134,3 +134,6 @@ E:\Proiecte\Bogdan-Turdean-OTP-system\OTPBackend\OTPBackend\obj\Debug\net8.0\ref
 E:\Proiecte\Bogdan-Turdean-OTP-system\OTPBackend\OTPBackend\obj\Debug\net8.0\OTPBackend.pdb
 E:\Proiecte\Bogdan-Turdean-OTP-system\OTPBackend\OTPBackend\obj\Debug\net8.0\OTPBackend.genruntimeconfig.cache
 E:\Proiecte\Bogdan-Turdean-OTP-system\OTPBackend\OTPBackend\obj\Debug\net8.0\ref\OTPBackend.dll
+E:\Proiecte\Bogdan-Turdean-OTP-system\OTPBackend\OTPBackend\obj\Debug\net8.0\OTPBackend.sourcelink.json
+E:\Proiecte\Bogdan-Turdean-OTP-system\OTPBackend\OTPBackend\bin\Debug\net8.0\Google.Authenticator.dll
+E:\Proiecte\Bogdan-Turdean-OTP-system\OTPBackend\OTPBackend\bin\Debug\net8.0\QRCoder.dll

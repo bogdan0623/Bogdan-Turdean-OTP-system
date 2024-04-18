@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { FormComponent } from './pages/login/form/form.component';
+import { AuthenticatorComponent } from './pages/login/authenticator/authenticator.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     NavComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FormComponent,
+    AuthenticatorComponent
   ],
   imports: [
     BrowserModule,

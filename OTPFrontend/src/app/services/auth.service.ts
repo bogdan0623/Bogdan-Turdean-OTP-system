@@ -19,7 +19,11 @@ export class AuthService {
   }
 
   login(body: any){
-    return this.http.post('http://localhost:8000/api/login', body, {withCredentials: true});
+    return this.http.post('http://localhost:8000/api/login', body);
+  }
+
+  authenticatorLogin(body: any){
+    return this.http.post('http://localhost:8000/api/two-factor', body, {withCredentials: true});
   }
 
   user(){
