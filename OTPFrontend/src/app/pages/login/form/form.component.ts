@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -16,7 +15,6 @@ export class FormComponent {
 
   constructor (
     private formBuilder: FormBuilder,
-    private router: Router,
     private authService: AuthService
   ) {
 

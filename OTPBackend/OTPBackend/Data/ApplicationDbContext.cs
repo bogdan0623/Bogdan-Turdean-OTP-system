@@ -13,6 +13,8 @@ namespace OTPBackend.Data
 
         public DbSet<UserToken> UserTokens { get; set; } = default!;
 
+        public DbSet<UserOtp> UserOtps { get; set; } = default!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(entity => { entity.HasIndex(e => e.Email).IsUnique(); });

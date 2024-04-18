@@ -7,16 +7,12 @@
       "RelativeMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|solutionrelative:otpbackend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|e:\\proiecte\\bogdan-turdean-otp-system\\otpbackend\\otpbackend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|solutionrelative:otpbackend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|e:\\proiecte\\bogdan-turdean-otp-system\\otpbackend\\otpbackend\\dto\\twofactordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|solutionrelative:otpbackend\\dto\\twofactordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|e:\\proiecte\\bogdan-turdean-otp-system\\otpbackend\\otpbackend\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|solutionrelative:otpbackend\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|e:\\proiecte\\bogdan-turdean-otp-system\\otpbackend\\otpbackend\\models\\userotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|solutionrelative:otpbackend\\models\\userotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D6F37002-0F2E-4370-B940-55963566A135}|OTPBackend\\OTPBackend.csproj|e:\\proiecte\\bogdan-turdean-otp-system\\otpbackend\\otpbackend\\services\\hashservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,50 +26,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "User.cs",
-              "DocumentMoniker": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Models\\User.cs",
-              "RelativeDocumentMoniker": "OTPBackend\\Models\\User.cs",
-              "ToolTip": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Models\\User.cs",
-              "RelativeToolTip": "OTPBackend\\Models\\User.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAqwBYAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T00:11:48.344Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "TwoFactorDto.cs",
               "DocumentMoniker": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\DTO\\TwoFactorDto.cs",
               "RelativeDocumentMoniker": "OTPBackend\\DTO\\TwoFactorDto.cs",
               "ToolTip": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\DTO\\TwoFactorDto.cs",
               "RelativeToolTip": "OTPBackend\\DTO\\TwoFactorDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAA0AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T00:01:00.771Z",
+              "WhenOpened": "2024-04-18T01:49:43.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserOtp.cs",
+              "DocumentMoniker": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Models\\UserOtp.cs",
+              "RelativeDocumentMoniker": "OTPBackend\\Models\\UserOtp.cs",
+              "ToolTip": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Models\\UserOtp.cs",
+              "RelativeToolTip": "OTPBackend\\Models\\UserOtp.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-18T01:53:21.46Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Services\\TokenService.cs",
-              "RelativeDocumentMoniker": "OTPBackend\\Services\\TokenService.cs",
-              "ToolTip": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Services\\TokenService.cs",
-              "RelativeToolTip": "OTPBackend\\Services\\TokenService.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAswCwAAAB2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-17T10:27:03.207Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "HashService.cs",
               "DocumentMoniker": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Services\\HashService.cs",
               "RelativeDocumentMoniker": "OTPBackend\\Services\\HashService.cs",
@@ -81,8 +64,7 @@
               "RelativeToolTip": "OTPBackend\\Services\\HashService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-17T10:32:32.402Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-17T10:32:32.402Z"
             },
             {
               "$type": "Document",
@@ -92,7 +74,7 @@
               "RelativeDocumentMoniker": "OTPBackend\\Controllers\\AuthController.cs",
               "ToolTip": "E:\\Proiecte\\Bogdan-Turdean-OTP-system\\OTPBackend\\OTPBackend\\Controllers\\AuthController.cs",
               "RelativeToolTip": "OTPBackend\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAADAAAAAAAAAAAIAwwGcAAAAiAAAA",
+              "ViewState": "AQIAAHUAAAAAAAAAAAAAAI8AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-16T07:03:34.778Z",
               "EditorCaption": ""

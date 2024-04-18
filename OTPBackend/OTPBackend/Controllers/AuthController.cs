@@ -59,24 +59,32 @@ namespace OTPBackend.Controllers
                 return Unauthorized("Invalid password");
             }
 
-            if(user.TfaSecret is not null)
-            {
-                return Ok(new
-                {
-                    id = user.Id,
-                });
-            }
+            //if(user.TfaSecret is not null)
+            //{
+            //    return Ok(new
+            //    {
+            //        id = user.Id,
+            //    });
+            //}
 
             Random random = new Random();
             string secret = new(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", 32).Select(s => s[random.Next(s.Length)]).ToArray());
 
-            string otpAuthUrl = $"otpauth://totp/{appName}:Secret?secret={secret}&issuer={appName}".Replace(" ", "%20");
+            UserOtp otp = new()
+            {
+                UserId = user.Id,
+                Code = secret,
+                ExpiredAt = DateTime.Now.AddSeconds(60),
+            };
+            _db.UserOtps.Add(otp);
+            _db.SaveChanges();
+            //string otpAuthUrl = $"otpauth://totp/{appName}:Secret?secret={secret}&issuer={appName}".Replace(" ", "%20");
 
             return Ok(new
             {
                 id = user.Id,
-                secret = secret,
-                otpauth_url = otpAuthUrl,
+                //secret = secret,
+                //otpauth_url = otpAuthUrl,
             });
         }
 
@@ -90,21 +98,32 @@ namespace OTPBackend.Controllers
                 return Unauthorized("Invalid credentials");
             }
 
-            string secret = user.TfaSecret is not null ? user.TfaSecret : dto.Secret;
+            string secret = dto.Code;
 
-            TwoFactorAuthenticator tfa = new();
-            if(!tfa.ValidateTwoFactorPIN(secret, dto.Code, true))
+            //TwoFactorAuthenticator tfa = new();
+            //if(!tfa.ValidateTwoFactorPIN(secret, dto.Code, true))
+            //{
+            //    return Unauthorized("Invalid credentials");
+            //}
+            UserOtp otp = _db.UserOtps.Where(u => u.UserId == user.Id).FirstOrDefault();
+
+            if(otp is null)
             {
-                return Unauthorized("Invalid credentials");
+                return Unauthorized("Unauthorized!");
             }
 
-            if(user.TfaSecret is null)
+            if(otp.Code != secret || otp.ExpiredAt < DateTime.Now)
             {
-                _db.Users.Where(u => u.Email == user.Email).FirstOrDefault()!.TfaSecret = dto.Secret;
-                _db.SaveChanges();
+                return Unauthorized("Invalid code!");
             }
 
-                string accessToken = TokenService.CreateAccessToken(dto.Id, _configuration.GetSection("JWT:AccessKey").Value);
+            //if(user.TfaSecret is null)
+            //{
+            //    _db.Users.Where(u => u.Email == user.Email).FirstOrDefault()!.TfaSecret = dto.Secret;
+            //    _db.SaveChanges();
+            //}
+
+            string accessToken = TokenService.CreateAccessToken(dto.Id, _configuration.GetSection("JWT:AccessKey").Value);
             string refreshToken = TokenService.CreateRefreshToken(dto.Id, _configuration.GetSection("JWT:RefreshKey").Value);
 
             CookieOptions cookieOptions = new();
@@ -119,6 +138,9 @@ namespace OTPBackend.Controllers
             };
 
             _db.UserTokens.Add(token);
+            _db.SaveChanges();
+
+            _db.UserOtps.Remove(_db.UserOtps.Where(u => u.Code == secret).First());
             _db.SaveChanges();
 
             return Ok(new

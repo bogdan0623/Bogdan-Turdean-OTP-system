@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  message = "Hello";
+  message = "You ar not authenticated";
 
   constructor(private authService: AuthService) {
 

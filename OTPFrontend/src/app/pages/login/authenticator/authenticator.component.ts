@@ -12,7 +12,7 @@ export class AuthenticatorComponent implements OnInit{
 
   @Input('loginData') loginData = {
     id: 0,
-    img: ""
+    // img: ""
   };
 
   form! : FormGroup;
