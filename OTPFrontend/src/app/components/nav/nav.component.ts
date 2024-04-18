@@ -23,19 +23,10 @@ export class NavComponent implements OnInit{
     
   }
 
-  // isAuthenticated() {
-  //   // AuthService.behaviorSubject.subscribe(authenticated => {
-  //   //   this.authenticated = authenticated;
-  //   // })
-  //   // return this.authenticated;
-  //   return AuthService.isAuthenticated;
-  // }
-
   logout() {
     AuthService.behaviorSubject.next(false);
     this.authService.logout().subscribe( () => {
-      this.authService.accessToken = '';
-      // AuthService.authEmitter.emit(false);      
+      this.authService.accessToken = '';    
     })
   }
 

@@ -13,6 +13,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } fro
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FormComponent } from './pages/login/form/form.component';
 import { AuthenticatorComponent } from './pages/login/authenticator/authenticator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AuthenticatorComponent } from './pages/login/authenticator/authenticato
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

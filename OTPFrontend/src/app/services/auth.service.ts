@@ -30,6 +30,10 @@ export class AuthService {
     return this.http.get('http://localhost:8000/api/user');
   }
 
+  generateOtp(body: any){
+    return this.http.post('http://localhost:8000/api/otp', body);
+  }
+
   refresh(){
     return this.http.post('http://localhost:8000/api/refresh', {}, {withCredentials: true});
   }

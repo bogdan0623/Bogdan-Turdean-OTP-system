@@ -1,5 +1,4 @@
-﻿using Google.Authenticator;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OTPBackend.Data;
 using OTPBackend.DTO;
 using OTPBackend.Models;
@@ -25,9 +24,33 @@ namespace OTPBackend.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterDto dto)
         {
+            if(dto.FirstName == string.Empty)
+            {
+                return BadRequest(new { message = "First name cannot be empty!" });
+            }
+            if (dto.LastName == string.Empty)
+            {
+                return BadRequest(new { message = "Last name cannot be empty!" });
+            }
+            if (dto.Email == string.Empty)
+            {
+                return BadRequest(new { message = "Email cannot be empty!" });
+            }
+            else
+            {
+                // Validate email format
+                if (!ValidateService.IsValidEmail(dto.Email))
+                {
+                    return BadRequest(new { message = "Insert a valid e-mail address!" });
+                }
+            }
+            if (dto.Password == string.Empty)
+            {
+                return BadRequest(new { message = "Password cannot be empty!" });
+            }
             if (dto.Password != dto.PasswordConfirms)
             {
-                return Unauthorized("Passwords do not match");
+                return Unauthorized(new { message = "Passwords do not match" });
             }
 
             User user = new()
@@ -51,41 +74,50 @@ namespace OTPBackend.Controllers
 
             if(user == null)
             {
-                return Unauthorized("Invalid e-mail");
+                return Unauthorized(new { message = "Invalid credentials!" });
             }
 
             if(HashService.HashPassword(loginDto.Password) != user.Password)
             {
-                return Unauthorized("Invalid password");
+                return Unauthorized(new { message = "Invalid credentials!" });
             }
 
-            //if(user.TfaSecret is not null)
-            //{
-            //    return Ok(new
-            //    {
-            //        id = user.Id,
-            //    });
-            //}
+            return Ok(new
+            {
+                id = user.Id,
+            });
+        }
+
+        [HttpPost("otp")]
+        public IActionResult Otp(UserDto userDto)
+        {
+            User user = _db.Users.Where(u => u.Id == userDto.Id).FirstOrDefault();
+
+            if (user == null)
+            {
+                return Unauthorized(new { message = "Unauthenticated!" });
+            }
+
+            UserOtp otpToBeDeleted = _db.UserOtps.Where(u => u.UserId == user.Id).FirstOrDefault();
+
+            if(otpToBeDeleted is not null)
+            {
+                _db.UserOtps.Remove(otpToBeDeleted);
+            }
 
             Random random = new Random();
-            string secret = new(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", 32).Select(s => s[random.Next(s.Length)]).ToArray());
+            string secret = new(Enumerable.Repeat("0123456789", 6).Select(s => s[random.Next(s.Length)]).ToArray());
 
             UserOtp otp = new()
             {
                 UserId = user.Id,
                 Code = secret,
-                ExpiredAt = DateTime.Now.AddSeconds(60),
+                ExpiredAt = DateTime.Now.AddSeconds(userDto.ExpiresIn),
             };
             _db.UserOtps.Add(otp);
             _db.SaveChanges();
-            //string otpAuthUrl = $"otpauth://totp/{appName}:Secret?secret={secret}&issuer={appName}".Replace(" ", "%20");
 
-            return Ok(new
-            {
-                id = user.Id,
-                //secret = secret,
-                //otpauth_url = otpAuthUrl,
-            });
+            return Ok(otp);
         }
 
         [HttpPost("two-factor")]
@@ -95,33 +127,22 @@ namespace OTPBackend.Controllers
 
             if(user is null)
             {
-                return Unauthorized("Invalid credentials");
+                return Unauthorized(new { message = "Invalid credentials!" });
             }
 
             string secret = dto.Code;
 
-            //TwoFactorAuthenticator tfa = new();
-            //if(!tfa.ValidateTwoFactorPIN(secret, dto.Code, true))
-            //{
-            //    return Unauthorized("Invalid credentials");
-            //}
             UserOtp otp = _db.UserOtps.Where(u => u.UserId == user.Id).FirstOrDefault();
 
             if(otp is null)
             {
-                return Unauthorized("Unauthorized!");
+                return Unauthorized(new { message = "Invalid code!" });
             }
 
             if(otp.Code != secret || otp.ExpiredAt < DateTime.Now)
             {
                 return Unauthorized("Invalid code!");
-            }
-
-            //if(user.TfaSecret is null)
-            //{
-            //    _db.Users.Where(u => u.Email == user.Email).FirstOrDefault()!.TfaSecret = dto.Secret;
-            //    _db.SaveChanges();
-            //}
+            }          
 
             string accessToken = TokenService.CreateAccessToken(dto.Id, _configuration.GetSection("JWT:AccessKey").Value);
             string refreshToken = TokenService.CreateRefreshToken(dto.Id, _configuration.GetSection("JWT:RefreshKey").Value);
@@ -156,7 +177,7 @@ namespace OTPBackend.Controllers
 
             if(authorizationHeader is null || authorizationHeader.Length <=8)
             {
-                return Unauthorized("Unauthenticated!");
+                return Unauthorized(new { message = "Unauthenticated!" });
             }
 
             string accessToken = authorizationHeader[7..];
@@ -165,14 +186,14 @@ namespace OTPBackend.Controllers
 
             if(hasTokenExpired)
             {
-                return Unauthorized("Unauthenticated!");
+                return Unauthorized(new { message = "Unauthenticated!" });
             }
 
             User user = _db.Users.Where(u => u.Id == id).FirstOrDefault();
 
             if(user is null)
             {
-                return Unauthorized("Unauthenticated!");
+                return Unauthorized(new { message = "Unauthenticated!" });
             }
 
             return Ok(user);
@@ -183,7 +204,7 @@ namespace OTPBackend.Controllers
         {
             if (Request.Cookies["refresh_token"] is null)
             {
-                return Unauthorized("Unauthenticated!");
+                return Unauthorized(new { message = "Unauthenticated!" });
             }
 
             string refreshToken = Request.Cookies["refresh_token"];
@@ -192,12 +213,12 @@ namespace OTPBackend.Controllers
 
             if(!_db.UserTokens.Where(u => u.UserId == id && u.Token == refreshToken && u.ExpiredAt > DateTime.Now).Any())
             {
-                return Unauthorized("Unauthenticated!");
+                return Unauthorized(new { message = "Session has expired!" });
             }
 
             if (hasTokenExpired)
             {
-                return Unauthorized("Unauthenticated! Token has expired!");
+                return Unauthorized(new { message = "Unauthenticated! Token has expired!" });
             }
 
             string accessToken = TokenService.CreateAccessToken(id, _configuration.GetSection("JWT:AccessKey").Value);
@@ -223,7 +244,7 @@ namespace OTPBackend.Controllers
 
             Response.Cookies.Delete("refresh_token");
 
-            return Ok("Logged Out Successfully!");
+            return Ok(new { message = "Logged out successfully!" });
         }
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   constructor (
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
 
   }
@@ -31,8 +33,17 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
-    this.authService.register(this.form.getRawValue()).subscribe(
-      () => this.router.navigate(['/login'])
-    );
+    this.authService.register(this.form.getRawValue()).subscribe({
+      next: () => {
+        this.router.navigate(['/login'])
+      },
+      error: err => {
+        this.toastr.error(err.error.message, 'ERROR', {
+          timeOut: 3000,
+          closeButton: true,
+          tapToDismiss: false
+        });
+      }
+    });
   }
 }

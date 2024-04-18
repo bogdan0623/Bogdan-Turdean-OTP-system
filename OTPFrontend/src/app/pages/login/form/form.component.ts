@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form',
@@ -15,7 +16,8 @@ export class FormComponent {
 
   constructor (
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
 
   }
@@ -28,8 +30,17 @@ export class FormComponent {
   }
 
   submit() {
-    this.authService.login(this.form.getRawValue()).subscribe(
-      res => this.onLogin.emit(res)
-    );
+    this.authService.login(this.form.getRawValue()).subscribe({
+      next: res => {
+        this.onLogin.emit(res)
+      },
+      error: err => {
+        this.toastr.error(err.error.message, 'ERROR', {
+          timeOut: 3000,
+          closeButton: true,
+          tapToDismiss: false
+        });
+      }
+    });    
   }
 }
